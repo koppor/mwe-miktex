@@ -1,5 +1,7 @@
 name: MiKTeX
-on: [push]
+on:
+  - push
+  - workflow_dispatch
 concurrency:
   group: miktex-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
