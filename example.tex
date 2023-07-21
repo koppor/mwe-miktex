@@ -212,4 +212,54 @@ Please do \textit{not} use two backslashes for new paragraphs.
 For instance, this sentence belongs to the same paragraph, whereas the last one started a new one.
 A long motivation for that is provided at \url{http://loopspace.mathforge.org/HowDidIDoThat/TeX/VCS/#section.3}.
 \end{ltgexample}
+\subsection{Itemization}
+One can list items as follows:
+\begin{ltgexample}
+\begin{itemize}
+\item Item One
+\item Item Two
+\end{itemize}
+\end{ltgexample}
+With the package paralist, one can create itemizations with lesser spacing:
+\begin{ltgexample}
+\begin{compactitem}
+\item Item One
+\item Item Two
+\end{compactitem}
+\end{ltgexample}
+One can enumerate items as follows:
+\begin{ltgexample}
+\begin{enumerate}
+  \item Item One
+  \item Item Two
+\end{enumerate}
+\end{ltgexample}
+With the package paralist, one can create enumerations with lesser spacing:
+\begin{ltgexample}
+\begin{compactenum}
+  \item Item One
+  \item Item Two
+\end{compactenum}
+\end{ltgexample}
+With paralist, one can even have all items typset after each other and have them clean in the tex document:
+\begin{ltgexample}
+\begin{inparaenum}
+  \item All these items...
+  \item ...appear in one line
+  \item This is enabled by the paralist package.
+\end{inparaenum}
+\end{ltgexample}
+\subsection{Other Features}
+\begin{ltgexample}
+The words \enquote{workflow} and \enquote{dwarflike} can be copied from the PDF and pasted to a text file.
+\end{ltgexample}
+\begin{ltgexample}
+The symbol for powerset is now correct: $\powerset$ and not a Weierstrass p ($\wp$).
+$\powerset({1,2,3})$
+\end{ltgexample}
+\begin{ltgexample}
+Brackets work as designed:
+<test>
+One can also input backquotes in verbatim text: \verb|`test`|.
+\end{ltgexample}
 \end{document}
