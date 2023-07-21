@@ -19,13 +19,9 @@ jobs:
           sudo apt-get install -qq -y --no-install-recommends miktex
           miktexsetup finish
           initexmf --set-config-value=[MPM]AutoInstall=1
-          mpm --update
           miktex packages update-package-database
           miktex packages update
           miktex packages install cm-super
-          updmap
-          initexmf --mkmaps
-          initexmf --update-fndb
-          initexmf --mklinks --force
           miktex fndb refresh
+          updmap
       - run: pdflatex example-expansion
