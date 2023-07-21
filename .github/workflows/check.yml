@@ -1,0 +1,27 @@
+name: MiKTeX
+on:
+  - push
+  - workflow_dispatch
+jobs:
+  miktex:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Add ~/bin to PATH
+        run: echo "${HOME}/bin" >> $GITHUB_PATH
+      - name: Install MikTeX
+        run: |
+          set -e
+          sudo gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/miktex.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D6BC243565B2087BC3F897C9277A7293F59E4889
+          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/miktex.gpg] https://miktex.org/download/ubuntu jammy universe" | sudo tee /etc/apt/sources.list.d/miktex.list
+          sudo apt-get update -y -q
+          sudo apt-get install -qq -y --no-install-recommends miktex
+          miktexsetup finish
+          initexmf --set-config-value=[MPM]AutoInstall=1
+          miktex packages update-package-database
+          miktex packages update
+          miktex packages install cm-super
+          miktex fndb refresh
+          updmap
+      - run: pdflatex example-expansion
