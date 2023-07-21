@@ -28,4 +28,4 @@ jobs:
           initexmf --update-fndb
           initexmf --mklinks --force
           miktex fndb refresh
-      - run: pdflatex example
+      - run: pdflatex example-expansion
