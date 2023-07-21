@@ -271,50 +271,6 @@ One can span a figure across multiple columns by using \verb+\begin{figure*}+.
   \label{fig:two_sub_figures}
 \end{figure*}
 \end{ltgexample}
-\subsection{Tables}
-Note that IEEE does not support \verb+\begin{table}+, one has to use \verb+\begin{figure}+.
-\begin{ltgexample}
-\begin{figure}
-  \caption{Simple Table}
-  \label{tab:simple}
-  \centering
-  \begin{tabular}{ll}
-    \toprule
-    Heading1 & Heading2 \\
-    \midrule
-    One      & Two      \\
-    Thee     & Four     \\
-    \bottomrule
-  \end{tabular}
-\end{figure}
-\end{ltgexample}
-\begin{ltgexample}
-\begin{figure}
-\caption{Table with diagonal line}
-\label{tab:diag}
-\begin{center}
-\begin{tabular}{|l|c|c|}
-\hline
-\diagbox[width=10em]{Diag\\Column Head I}{Diag Column\\Head II} & Second & Third \\
-\hline
-& foo & bar \\
-\hline
-\end{tabular}
-\end{center}
-\end{figure}
-\end{ltgexample}
-\subsection{Source Code}
-\begin{ltgexample}
-\begin{lstlisting}[
-  language=XML,
-  caption={Example XML Listing},
-  label={lst:XML}]
-<listing name="example">
-  <!-- comment --> (* \label{line:comment} *)
-  <content>not interesting</content>
-</listing>
-\end{lstlisting}
-\end{ltgexample}
 One can also add \verb+float+ as parameter to have the listing floating.
 \begin{ltgexample}
 \begin{lstlisting}[
