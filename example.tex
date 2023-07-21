@@ -139,11 +139,6 @@
 \usepackage[all]{hypcap}
 \usepackage[caption=false,font=footnotesize]{subfig}
 \usepackage[incolumn]{mindflow}
-\usepackage[capitalise,nameinlink,noabbrev]{cleveref}
-\crefname{listing}{Listing}{Listings}
-\Crefname{listing}{Listing}{Listings}
-\crefname{lstlisting}{Listing}{Listings}
-\Crefname{lstlisting}{Listing}{Listings}
 \usepackage{lipsum}
 \usepackage[math]{blindtext}
 \usepackage{mwe}
@@ -244,7 +239,6 @@ Quoting with "`quote"' or ``quote'' also works.
 \end{ltgexample}
 \subsection{Figures}
 \begin{ltgexample}
-\Cref{fig:label} shows something interesting.
 \begin{figure}
   \centering
   \includegraphics[width=.8\linewidth]{example-image-golden}
@@ -253,7 +247,6 @@ Quoting with "`quote"' or ``quote'' also works.
 \end{figure}
 \end{ltgexample}
 One can span a figure across multiple columns by using \verb+\begin{figure*}+.
-See \cref{fig:16x9} as an example.
 \begin{ltgexample}
 \begin{figure*}
   \centering
@@ -266,7 +259,6 @@ See \cref{fig:16x9} as an example.
 \end{figure*}
 \end{ltgexample}
 \subsection{Sub Figures}
-An example of two sub figures is shown in \cref{fig:two_sub_figures}.
 \begin{ltgexample}
 \begin{figure*}[!b]
     \centering
@@ -313,8 +305,6 @@ Note that IEEE does not support \verb+\begin{table}+, one has to use \verb+\begi
 \end{ltgexample}
 \subsection{Source Code}
 \begin{ltgexample}
-\Cref{lst:XML} shows source code written in XML.
-\Cref{line:comment} contains a comment.
 \begin{lstlisting}[
   language=XML,
   caption={Example XML Listing},
@@ -326,7 +316,6 @@ Note that IEEE does not support \verb+\begin{table}+, one has to use \verb+\begi
 \end{lstlisting}
 \end{ltgexample}
 One can also add \verb+float+ as parameter to have the listing floating.
-\Cref{lst:flXML} shows the floating listing.
 \begin{ltgexample}
 \begin{lstlisting}[
   % one can adjust spacing here if required
