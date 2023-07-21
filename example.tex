@@ -102,15 +102,6 @@
   {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
   {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
 }
-\usepackage[%
-  square,        % for square brackets
-  comma,         % use commas as separators
-  numbers,       % for numerical citations;
-  %sort           % orders multiple citations into the sequence in which they appear in the list of references;
-  sort&compress % as sort but in addition multiple numerical citations
-                  % are compressed if possible (as 3-6, 15);
-]{natbib}
-\renewcommand{\bibfont}{\normalfont\footnotesize}
 \usepackage{etoolbox}
 \makeatletter
 \patchcmd{\NAT@test}{\else \NAT@nm}{\else \NAT@hyper@{\NAT@nm}}{}{}
