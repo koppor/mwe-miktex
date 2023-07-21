@@ -22,7 +22,7 @@ jobs:
           mpm --update
           miktex packages update-package-database
           miktex packages update
-          miktex packages install inconsolata currfile tex-gyre tex-gyre-math cm-super dehyph-exptl hyph-utf8
+          miktex packages install cm-super
           updmap
           initexmf --mkmaps
           initexmf --update-fndb
