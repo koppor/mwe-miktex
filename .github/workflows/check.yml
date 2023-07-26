@@ -21,6 +21,7 @@ jobs:
           initexmf --set-config-value=[MPM]AutoInstall=1
           miktex packages update-package-database
           miktex packages update
+          miktex packages update
           miktex packages install cm-super
           miktex fndb refresh
           updmap
