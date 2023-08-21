@@ -20,14 +20,14 @@ jobs:
           echo "deb [arch=amd64 signed-by=/usr/share/keyrings/miktex.gpg] https://miktex.org/download/ubuntu jammy universe" | sudo tee /etc/apt/sources.list.d/miktex.list
           sudo apt-get update -y -q
           sudo apt-get install -qq -y --no-install-recommends miktex
-      - run: miktexsetup --verbose finish
-      - run: initexmf --verbose --set-config-value=[MPM]AutoInstall=1
-      - run: miktex --verbose packages update-package-database
-      - run: miktex --verbose packages update
-      - run: miktex --verbose packages update
-      - run: miktex --verbose packages install cm-super
-      - run: miktex --verbose fndb refresh
-      - run: initexmf --verbose --update-fndb
-      - run: initexmf --verbose --mklinks --force
+      - run: miktexsetup --shared=yes --verbose finish
+      - run: initexmf --admin --verbose --set-config-value=[MPM]AutoInstall=1
+      - run: miktex --admin --verbose packages update-package-database
+      - run: miktex --admin --verbose packages update
+      - run: miktex --admin --verbose packages update
+      - run: miktex --admin --verbose packages install cm-super
+      - run: miktex --admin --verbose fndb refresh
+      - run: initexmf --admin --verbose --update-fndb
+      - run: initexmf --admin --verbose --mklinks --force
       - run: updmap
       - run: pdflatex example-expansion
