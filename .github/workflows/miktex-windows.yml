@@ -27,8 +27,6 @@ jobs:
         shell: cmd
         run: |
           call refreshenv
-          echo %PATH%
-          dir "C:\Program Files\MiKTeX"
           initexmf --verbose --set-config-value=[MPM]AutoInstall=1
           miktex --verbose packages update-package-database
           miktex --verbose packages update
@@ -37,4 +35,7 @@ jobs:
           initexmf --verbose --update-fndb
           initexmf --verbose --mklinks --force
           updmap
-      - run: pdflatex ${{ matrix.filename }}
+      - name: pdflatex
+        run: |
+          call refreshenv
+          pdflatex ${{ matrix.filename }}
