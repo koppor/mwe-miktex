@@ -20,12 +20,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Install MiKTeX
+        shell: cmd
         run: |
           choco install miktex
-          $env:ChocolateyInstall = Convert-Path "$((Get-Command choco).Path)\..\.."
-          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
           refreshenv
       - name: Update MiKTeX packages
+        shell: cmd
         run: |
           initexmf --verbose --set-config-value=[MPM]AutoInstall=1
           miktex --verbose packages update-package-database
