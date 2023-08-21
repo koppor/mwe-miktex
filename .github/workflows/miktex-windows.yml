@@ -26,7 +26,7 @@ jobs:
       - name: Update MiKTeX packages
         shell: cmd
         run: |
-          refreshenv
+          call refreshenv
           echo %PATH%
           dir "C:\Program Files\MiKTeX"
           initexmf --verbose --set-config-value=[MPM]AutoInstall=1
