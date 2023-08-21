@@ -19,7 +19,8 @@ jobs:
         uses: zauguin/install-texlive@v2
         with:
           packages: >
-            latex-bin microtype cm-super ieeetran etoolbox collection-fontsrecommended
+            latex-bin microtype cm-super ieeetran etoolbox ec
+      - run: tlmgr path add
       - run: initexmf --update-fndb
       - run: updmap
       - run: pdflatex example-expansion-T1
