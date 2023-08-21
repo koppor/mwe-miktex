@@ -1,8 +1,8 @@
-name: MiKTeX
+name: MiKTeX (Linux)
 on:
   push:
     paths:
-      - '.github/workflows/check.yml'
+      - '.github/workflows/miktex-linux.yml'
       - 'example-expansion.tex'
       - 'example-expansion-T1.tex'
   workflow_dispatch:
@@ -12,6 +12,10 @@ concurrency:
 jobs:
   miktex:
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        filename: [example-expansion.tex, example-expansion-T1.tex]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -46,5 +50,4 @@ jobs:
       - run: initexmf --verbose --update-fndb
       - run: initexmf --verbose --mklinks --force
       - run: updmap
-      - run: pdflatex example-expansion-T1
-      - run: pdflatex example-expansion
+      - run: pdflatex ${{ matrix.filename }}
