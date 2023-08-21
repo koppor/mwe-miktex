@@ -26,7 +26,7 @@ jobs:
       - name: Install texlive-fonts-recommended
         run: |
           set -e
-          sudo apt-get install -y -q equivs texlive-common
+          sudo apt-get install -y -q equivs tex-common
           equivs-build texlive-base.control
           sudo dpkg -i texlive-base_9999_all.deb
           sudo apt-get install -y --no-install-recommends texlive-fonts-recommended
