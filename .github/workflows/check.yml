@@ -32,7 +32,7 @@ jobs:
           sudo dpkg -i tex-common_9999_all.deb
           equivs-build texlive-base.control
           sudo dpkg -i texlive-base_9999_all.deb
-          cp -a update-texmf-config /usr/bin
+          sudo cp -a update-texmf-config /usr/bin
           ls -la /usr/bin/update-texmf-config
           update-texmf-config
           sudo apt-get install -y --no-install-recommends texlive-fonts-recommended
