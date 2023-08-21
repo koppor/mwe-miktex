@@ -33,9 +33,12 @@ jobs:
           miktex --verbose packages install cm-super
           miktex --verbose fndb refresh
           initexmf --verbose --update-fndb
+          type C:\Users\runneradmin\AppData\Local\MiKTeX\miktex\log\initexmf.log
           initexmf --verbose --mklinks --force
+          type C:\Users\runneradmin\AppData\Local\MiKTeX\miktex\log\initexmf.log
           updmap
       - name: pdflatex
+        shell: cmd
         run: |
           call refreshenv
           pdflatex ${{ matrix.filename }}
