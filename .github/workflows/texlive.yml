@@ -20,8 +20,7 @@ jobs:
         with:
           packages: >
             latex-bin microtype cm-super ieeetran etoolbox ec
-      - run: tlmgr path add
-      - run: initexmf --update-fndb
+      - run: mktexlsr
       - run: updmap
       - run: pdflatex example-expansion-T1
       - run: pdflatex example-expansion
