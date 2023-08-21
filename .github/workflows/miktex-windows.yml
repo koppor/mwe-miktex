@@ -22,6 +22,7 @@ jobs:
       - name: Install MiKTeX
         run: |
           choco install miktex
+          Import-Module "$env:ProgramData\chocolatey\helpers\chocolateyInstaller.psm1"; Update-SessionEnvironment
       - name: Update MiKTeX packages
         run: |
           initexmf --verbose --set-config-value=[MPM]AutoInstall=1
