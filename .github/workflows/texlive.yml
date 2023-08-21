@@ -22,8 +22,8 @@ jobs:
             latex-bin microtype cm-super collection-fontsrecommended ieeetran etoolbox siunitx amsmath tools
       - run: mktexlsr
       - run: updmap -user
-      - run: pdflatex example-expansion-T1
       - run: pdflatex example-expansion
+      - run: pdflatex example-expansion-T1
       - run: pdflatex mwe
       - uses: actions/upload-artifact@v3
         with:
