@@ -26,7 +26,8 @@ jobs:
           sudo apt-get install -qq -y --no-install-recommends miktex
       - name: Install texlive-fonts-recommended
         run: |
-          sudo apt-get install -y equivs
+          set -e
+          sudo apt-get install -y -q equivs
           equivs-build tex-common.control
           sudo dpkg -i tex-common_9999_all.deb
           equivs-build texlive-base.control
