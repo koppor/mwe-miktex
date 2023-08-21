@@ -14,6 +14,5 @@ jobs:
         uses: zauguin/install-texlive@v2
         with:
           packages: >
-            latex-bin cm-super ieeetran
-      #- run: tlmgr path add
+            latex-bin microtype cm-super ieeetran
       - run: pdflatex example-expansion
