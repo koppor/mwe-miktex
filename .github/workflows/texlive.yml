@@ -21,7 +21,7 @@ jobs:
           packages: >
             latex-bin microtype cm-super ieeetran etoolbox ec
       - run: mktexlsr
-      - run: updmap
+      - run: updmap -user
       - run: pdflatex example-expansion-T1
       - run: pdflatex example-expansion
       - run: pdflatex mwe
