@@ -1,0 +1,15 @@
+name: TeX Live
+on:
+  push:
+jobs:
+  texlive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install TeX Live
+        uses: zauguin/install-texlive@v2
+        with:
+          packages: >
+            cm-super
+      - run: pdflatex example-expansion
