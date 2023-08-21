@@ -1,6 +1,11 @@
 name: TeX Live
 on:
   push:
+    paths:
+      - '.github/workflows/texlive.yml'
+      - 'example-*.tex'
+      - 'mwe.tex'
+  workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -14,7 +19,8 @@ jobs:
         uses: zauguin/install-texlive@v2
         with:
           packages: >
-            latex-bin microtype cm-super ieeetran
+            latex-bin microtype cm-super ieeetran etoolgbox
+      - run: pdflatex example-expansion-T1
       - run: pdflatex example-expansion
       - run: pdflatex mwe
       - uses: actions/upload-artifact@v3
