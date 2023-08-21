@@ -15,4 +15,5 @@ jobs:
         with:
           packages: >
             cm-super
+      - run: tlmgr path add
       - run: pdflatex example-expansion
