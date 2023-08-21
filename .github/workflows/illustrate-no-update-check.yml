@@ -34,4 +34,3 @@ jobs:
       - run: initexmf --verbose --mklinks --force
       - run: updmap
       - run: pdflatex mwe
-

@@ -1,7 +1,11 @@
 name: MiKTeX
 on:
-  - push
-  - workflow_dispatch
+  push:
+    paths:
+      - '.github/workflows/check.yml'
+      - 'example-expansion.tex'
+      - 'example-expansion-T1.tex'
+  workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -30,4 +34,5 @@ jobs:
       - run: initexmf --verbose --update-fndb
       - run: initexmf --verbose --mklinks --force
       - run: updmap
+      - run: pdflatex example-expansion-T1
       - run: pdflatex example-expansion
