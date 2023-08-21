@@ -1,0 +1,31 @@
+name: TeX Live
+on:
+  push:
+    paths:
+      - '.github/workflows/texlive.yml'
+      - 'example-*.tex'
+      - 'mwe.tex'
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  texlive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install TeX Live
+        uses: zauguin/install-texlive@v2
+        with:
+          packages: >
+            latex-bin microtype cm-super collection-fontsrecommended ieeetran etoolbox siunitx amsmath tools
+      - run: mktexlsr
+      - run: updmap -user
+      - run: pdflatex example-expansion-T1
+      - run: pdflatex example-expansion
+      - run: pdflatex mwe
+      - uses: actions/upload-artifact@v3
+        with:
+          name: PDFs
+          path: "*.pdf"
