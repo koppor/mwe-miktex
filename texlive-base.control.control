@@ -1,0 +1,9 @@
+Section: misc
+Priority: optional
+Standards-Version: 3.9.2
+
+Package: texlive-base
+Version: 9999
+Maintainer: Oliver Kopp <kopp.dev+tl@gmail.com>
+Architecture: all
+Description: Dummy texlive-base package
