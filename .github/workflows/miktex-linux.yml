@@ -1,8 +1,8 @@
-name: MiKTeX
+name: MiKTeX (Linux)
 on:
   push:
     paths:
-      - '.github/workflows/check.yml'
+      - '.github/workflows/miktex-linux.yml'
       - 'example-expansion.tex'
       - 'example-expansion-T1.tex'
   workflow_dispatch:
