@@ -19,7 +19,7 @@ jobs:
         uses: zauguin/install-texlive@v2
         with:
           packages: >
-            latex-bin microtype cm-super ieeetran etoolbox ec siunitx amsmath array
+            latex-bin microtype cm-super ieeetran etoolbox ec siunitx amsmath latex-tools
       - run: mktexlsr
       - run: updmap -user
       - run: pdflatex example-expansion-T1
