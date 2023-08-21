@@ -23,10 +23,12 @@ jobs:
         shell: cmd
         run: |
           choco install miktex
-          refreshenv
       - name: Update MiKTeX packages
         shell: cmd
         run: |
+          refreshenv
+          echo %PATH%
+          dir "C:\Program Files\MiKTeX"
           initexmf --verbose --set-config-value=[MPM]AutoInstall=1
           miktex --verbose packages update-package-database
           miktex --verbose packages update
