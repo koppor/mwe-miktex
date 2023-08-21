@@ -19,22 +19,14 @@ jobs:
           path: |
             /tmp/packages
           key: ${{ runner.os }}
-      - name: Install MikTeX
+      - run: mkdir -p /tmp/packages
+      - name: "Install MikTeX: apt-get install"
         run: |
           set -e
           sudo gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/miktex.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D6BC243565B2087BC3F897C9277A7293F59E4889
           echo "deb [arch=amd64 signed-by=/usr/share/keyrings/miktex.gpg] https://miktex.org/download/ubuntu jammy universe" | sudo tee /etc/apt/sources.list.d/miktex.list
           sudo apt-get update -y -q
           sudo apt-get install -qq -y --no-install-recommends miktex
-          miktexsetup finish
-          initexmf --set-config-value=[MPM]AutoInstall=1
-          miktex packages update-package-database
-          miktex packages update
-          mkdir -p /tmp/packages
-          miktexsetup --verbose --package-set=complete --local-package-repository=/tmp/packages download || true 
-          miktexsetup --verbose --local-package-repository=/tmp/packages install || true
-          miktex fndb refresh || true
-          updmap || true
       - run: pdflatex example-expansion || true
       - name: Save cache
         uses: actions/cache/save@v3
@@ -42,3 +34,15 @@ jobs:
           path: |
             /tmp/packages
           key: ${{ runner.os }}
+      - run: miktexsetup --verbose finish
+      - run: initexmf --verbose --set-config-value=[MPM]AutoInstall=1
+      - run: miktex --verbose packages update-package-database
+      - run: miktex --verbose packages update
+      - run: miktex --verbose packages update
+      - run: miktexsetup --verbose --package-set=complete --local-package-repository=/tmp/packages download
+      - run: miktexsetup --verbose --local-package-repository=/tmp/packages install
+      - run: miktex --verbose fndb refresh
+      - run: initexmf --verbose --update-fndb
+      - run: initexmf --verbose --mklinks --force
+      - run: updmap
+      - run: pdflatex example-expansion
