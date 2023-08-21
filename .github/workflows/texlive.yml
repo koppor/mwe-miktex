@@ -19,7 +19,7 @@ jobs:
         uses: zauguin/install-texlive@v2
         with:
           packages: >
-            latex-bin microtype cm-super ieeetran etoolgbox
+            latex-bin microtype cm-super ieeetran etoolbox
       - run: pdflatex example-expansion-T1
       - run: pdflatex example-expansion
       - run: pdflatex mwe
