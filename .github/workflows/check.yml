@@ -38,7 +38,7 @@ jobs:
       - run: initexmf --verbose --update-fndb
       - run: initexmf --verbose --mklinks --force
       - run: updmap
-      - run: pdflatex example-expansion || true
+      - run: pdflatex example-expansion
       - name: Save cache
         uses: actions/cache/save@v3
         with:
