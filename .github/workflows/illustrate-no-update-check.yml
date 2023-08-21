@@ -1,0 +1,34 @@
+name: Illustrate no update check
+on:
+  - push
+  - workflow_dispatch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  miktex:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Add ~/bin to PATH
+        run: echo "${HOME}/bin" >> $GITHUB_PATH
+      - name: "Install MikTeX: apt-get install"
+        run: |
+          set -e
+          sudo gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/miktex.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D6BC243565B2087BC3F897C9277A7293F59E4889
+          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/miktex.gpg] https://miktex.org/download/ubuntu jammy universe" | sudo tee /etc/apt/sources.list.d/miktex.list
+          sudo apt-get update -y -q
+          sudo apt-get install -qq -y --no-install-recommends miktex
+      - run: miktexsetup --verbose finish
+      - run: initexmf --verbose --set-config-value=[MPM]AutoInstall=1
+      - run: miktex --verbose packages update-package-database
+      - run: miktex --verbose packages update
+      - run: miktex --verbose packages update
+      - run: miktex --verbose packages install cm-super
+      - run: miktex --verbose fndb refresh
+      - run: initexmf --verbose --update-fndb
+      - run: initexmf --verbose --mklinks --force
+      - run: updmap
+      - run: pdflatex mwe
+
