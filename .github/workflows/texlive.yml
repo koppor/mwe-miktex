@@ -16,3 +16,8 @@ jobs:
           packages: >
             latex-bin microtype cm-super ieeetran
       - run: pdflatex example-expansion
+      - run: pdflatex mwe
+      - uses: actions/upload-artifact@v3
+        with:
+            name: PDFs
+            path: *.pdf
