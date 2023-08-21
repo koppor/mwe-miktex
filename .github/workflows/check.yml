@@ -30,4 +30,5 @@ jobs:
       - run: initexmf --verbose --update-fndb
       - run: initexmf --verbose --mklinks --force
       - run: updmap
+      - run: pdflatex example-expansion-T1
       - run: pdflatex example-expansion
