@@ -1,7 +1,10 @@
 name: Illustrate no update check
 on:
-  - push
-  - workflow_dispatch
+  push:
+    paths:
+      - '.github/workflows/illustrate-no-update-check.yml'
+      - 'mwe.tex'
+  workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -31,4 +34,3 @@ jobs:
       - run: initexmf --verbose --mklinks --force
       - run: updmap
       - run: pdflatex mwe
-
