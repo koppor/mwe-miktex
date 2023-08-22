@@ -25,13 +25,13 @@ jobs:
           choco install miktex --no-progress
           echo "C:\Program Files\MiKTeX\miktex\bin\x64" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8
       - run: initexmf --admin --verbose --set-config-value=[MPM]AutoInstall=1
-      - run: miktex --verbose packages update-package-database
-      - run: miktex --verbose packages update
-      - run: miktex --verbose packages install cm-super
-      - run: miktex --verbose fndb refresh
-      - run: initexmf --verbose --update-fndb
-      - run: type C:\Users\runneradmin\AppData\Local\MiKTeX\miktex\log\initexmf.log
-      - run: initexmf --verbose --mklinks --force
-      - run: type C:\Users\runneradmin\AppData\Local\MiKTeX\miktex\log\initexmf.log
-      - run: updmap
+      - run: miktex --admin --verbose packages update-package-database
+      - run: miktex --admin --verbose packages update
+      - run: miktex --admin --verbose packages install cm-super
+      - run: miktex --admin --verbose fndb refresh
+      - run: initexmf --admin --verbose --update-fndb
+      - run: |
+          initexmf --verbose --mklinks --force
+          type C:\Users\runneradmin\AppData\Local\MiKTeX\miktex\log\initexmf.log
+      - run: updmap --admin
       - run: pdflatex ${{ matrix.filename }}
