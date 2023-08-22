@@ -27,6 +27,7 @@ jobs:
       - run: initexmf --admin --verbose --set-config-value=[MPM]AutoInstall=1
       - run: miktex --admin --verbose packages update-package-database
       - run: miktex --admin --verbose packages update
+      - run: miktex --verbose packages update
       - run: miktex --admin --verbose packages install cm-super
       - run: miktex --admin --verbose fndb refresh
       - run: initexmf --admin --verbose --update-fndb
