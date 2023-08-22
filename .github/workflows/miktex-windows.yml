@@ -31,7 +31,7 @@ jobs:
       - run: miktex --admin --verbose fndb refresh
       - run: initexmf --admin --verbose --update-fndb
       - run: |
-          initexmf --verbose --mklinks --force
+          initexmf --admin --verbose --mklinks --force
           type C:\Users\runneradmin\AppData\Local\MiKTeX\miktex\log\initexmf.log
           type C:\Users\runneradmin\AppData\Local\MiKTeX\miktex\log\miktex_2023-08-22-*.out
       - run: updmap --admin
