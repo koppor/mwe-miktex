@@ -22,7 +22,7 @@ jobs:
       - name: Install MiKTeX
         shell: cmd
         run: |
-          choco install miktex
+          choco install miktex --no-progress
       - name: Update MiKTeX packages
         shell: cmd
         run: |
