@@ -23,7 +23,7 @@ jobs:
           echo "deb [arch=amd64 signed-by=/usr/share/keyrings/miktex.gpg] https://miktex.org/download/ubuntu jammy universe" | sudo tee /etc/apt/sources.list.d/miktex.list
           sudo apt-get update -y -q
           sudo apt-get install -qq -y --no-install-recommends miktex
-      - run: sudo miktexsetup --admin --verbose finish
+      - run: miktexsetup --verbose finish
       - run: sudo initexmf --admin --verbose --set-config-value=[MPM]AutoInstall=1
       - run: sudo miktex --admin --verbose packages update-package-database
       - run: sudo miktex --admin --verbose packages update
