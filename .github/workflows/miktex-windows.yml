@@ -33,5 +33,6 @@ jobs:
       - run: |
           initexmf --verbose --mklinks --force
           type C:\Users\runneradmin\AppData\Local\MiKTeX\miktex\log\initexmf.log
+          type C:\Users\runneradmin\AppData\Local\MiKTeX\miktex\log\miktex_2023-08-22-*.out
       - run: updmap --admin
       - run: pdflatex ${{ matrix.filename }}
