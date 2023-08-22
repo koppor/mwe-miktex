@@ -15,8 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # filename: [example-expansion.tex, example-expansion-T1.tex]
-        filename: [example-expansion.tex]
+        filename: [example-expansion.tex, example-expansion-T1.tex]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
