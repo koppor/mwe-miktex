@@ -36,7 +36,7 @@ jobs:
         with:
           packages: >
             latex-bin microtype cm-super collection-fontsrecommended ieeetran
-            etoolbox siunitx amsmath tools currfile kvoptions
+            etoolbox siunitx amsmath tools currfile kvoptions ltxcmds
       - run: mktexlsr
       - run: updmap -user
       - run: pdflatex ${{ matrix.filename }}
