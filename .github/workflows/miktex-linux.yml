@@ -3,8 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/miktex-linux.yml'
-      #- 'example-*.tex'
-      - 'example-expansion.tex'
+      - 'example-*.tex'
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -28,9 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # filename: ${{fromJson(needs.setup.outputs.matrix)}}
-        # focus on failing file to save resources
-        filename: ["example-expansion.tex"]
+        filename: ${{fromJson(needs.setup.outputs.matrix)}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
