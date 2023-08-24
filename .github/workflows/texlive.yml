@@ -35,7 +35,7 @@ jobs:
         uses: zauguin/install-texlive@v2
         with:
           packages: >
-            latex-bin microtype cm-super collection-fontsrecommended ieeetran etoolbox siunitx amsmath tools
+            latex-bin microtype cm-super collection-fontsrecommended ieeetran etoolbox siunitx amsmath tools currfile
       - run: mktexlsr
       - run: updmap -user
       - run: pdflatex ${{ matrix.filename }}
