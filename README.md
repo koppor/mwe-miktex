@@ -2,7 +2,9 @@
 
 This repository demonstrates using MiKTeX in a CI.
 The original idea was to illustrate issues with MiKTeX on Linux.
-The project evolved to a playground for general MiKTeX usage on a CI.
+See <https://github.com/MiKTeX/miktex/discussions/1365> for the issue I have.
+
+Meanwhile, the project evolved to a playground for general MiKTeX usage on a CI.
 
 ## Development hints
 

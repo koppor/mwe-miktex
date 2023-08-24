@@ -3,19 +3,32 @@ on:
   push:
     paths:
       - '.github/workflows/miktex-windows.yml'
-      - 'example-expansion.tex'
-      - 'example-expansion-T1.tex'
+      - 'example-*.tex'
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Build matrix based on files
+      id: set-matrix
+      run: |
+        FILES=$(ls example-*.tex | jq -R -s -c 'split("\n")[:-1]')
+        echo "::set-output name=matrix::$FILES"
+
   miktex:
+    needs: setup
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix:
-        filename: [example-expansion.tex, example-expansion-T1.tex]
+        filename: ${{fromJson(needs.setup.outputs.matrix)}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -35,3 +48,12 @@ jobs:
           initexmf --admin --verbose --mklinks --force
           updmap --admin
       - run: pdflatex ${{ matrix.filename }}
+      - uses: actions/upload-artifact@v3
+        with:
+          name: PDFs
+          path: "*.pdf"
+      - uses: actions/upload-artifact@v3
+        if: ${{ !cancelled() }}
+        with:
+          name: logs
+          path: "*.log"

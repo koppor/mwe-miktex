@@ -3,7 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/illustrate-update-check.yml'
-      - 'mwe.tex'
+      - 'example-just-article.tex'
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -23,9 +23,10 @@ jobs:
           echo "deb [arch=amd64 signed-by=/usr/share/keyrings/miktex.gpg] https://miktex.org/download/ubuntu jammy universe" | sudo tee /etc/apt/sources.list.d/miktex.list
           sudo apt-get update -y -q
           sudo apt-get install -qq -y --no-install-recommends miktex
-      - run: miktexsetup --verbose finish
+      - run: sudo miktexsetup --verbose --shared=yes finish
       - run: sudo initexmf --admin --verbose --set-config-value=[MPM]AutoInstall=1
       - run: sudo miktex --admin --verbose packages update-package-database
+      - run: miktex --verbose packages update-package-database
       - run: sudo miktex --admin --verbose packages update
       - run: miktex --verbose packages update
       - run: sudo miktex --admin --verbose packages install cm-super
@@ -33,9 +34,15 @@ jobs:
       - run: sudo initexmf --admin --verbose --update-fndb
       - run: sudo initexmf --admin --verbose --mklinks --force
       - run: sudo updmap
-      - run: pdflatex mwe
+      - run: pdflatex example-just-article
+      - uses: actions/upload-artifact@v3
+        with:
+          name: PDFs
+          path: "*.pdf"
       - uses: actions/upload-artifact@v3
         if: ${{ !cancelled() }}
         with:
-          name: log
-          path: /home/runner/.miktex/texmfs/data/miktex/log/pdflatex.log
+          name: logs
+          path: |
+            /home/runner/.miktex/texmfs/data/miktex/log/pdflatex.log
+            "*.log"
