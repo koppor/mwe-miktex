@@ -49,6 +49,7 @@ jobs:
       - run: miktex --verbose packages update
       - run: miktex --verbose packages update
       - run: miktex --verbose packages install cm-super
+      - run: miktex fontmaps configure
       - run: miktex --verbose fndb refresh
       - run: initexmf --verbose --update-fndb
       - run: initexmf --verbose --mklinks --force
