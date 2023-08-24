@@ -42,12 +42,16 @@ jobs:
           sudo apt-get install -qq -y --no-install-recommends miktex
       - run: miktexsetup --verbose finish
       - run: initexmf --verbose --set-config-value=[MPM]AutoInstall=1
+      - run: miktex --admin --verbose packages update-package-database
       - run: miktex --verbose packages update-package-database
-      - run: miktex --verbose packages update
+      - run: miktex --admin --verbose packages update
       - run: miktex --verbose packages update
       - run: miktex --verbose packages install cm-super
-      - run: miktex fontmaps configure
+      - run: miktex --admin --verbose fontmaps configure
+      - run: miktex --verbose fontmaps configure
+      - run: miktex --admin --verbose fndb refresh
       - run: miktex --verbose fndb refresh
+      - run: initexmf --admin --verbose --update-fndb
       - run: initexmf --verbose --update-fndb
       - run: initexmf --verbose --mklinks --force
       - run: updmap
