@@ -4,14 +4,30 @@ on:
     paths:
       - '.github/workflows/texlive.yml'
       - 'example-*.tex'
-      - 'mwe.tex'
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  texlive:
+  setup:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Build matrix based on files
+      id: set-matrix
+      run: |
+        FILES=$(ls example-*.tex | jq -R -s -c 'split("\n")[:-1]')
+        echo "::set-output name=matrix::$FILES"
+  texlive:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        filename: ${{fromJson(needs.setup.outputs.matrix)}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -19,13 +35,17 @@ jobs:
         uses: zauguin/install-texlive@v2
         with:
           packages: >
-            latex-bin microtype cm-super collection-fontsrecommended ieeetran etoolbox siunitx amsmath tools
+            latex-bin microtype cm-super collection-fontsrecommended ieeetran
+            etoolbox siunitx amsmath tools currfile kvoptions
       - run: mktexlsr
       - run: updmap -user
-      - run: pdflatex example-expansion
-      - run: pdflatex example-expansion-T1
-      - run: pdflatex mwe
+      - run: pdflatex ${{ matrix.filename }}
       - uses: actions/upload-artifact@v3
         with:
           name: PDFs
           path: "*.pdf"
+      - uses: actions/upload-artifact@v3
+        if: ${{ !cancelled() }}
+        with:
+          name: logs
+          path: "*.log"
