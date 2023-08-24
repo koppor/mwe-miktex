@@ -35,7 +35,7 @@ jobs:
       - run: sudo updmap
       - run: pdflatex mwe
       - uses: actions/upload-artifact@v3
-        if: always()
+        if: ${{ !cancelled() }}
         with:
           name: log
           path: /home/runner/.miktex/texmfs/data/miktex/log/pdflatex.log
