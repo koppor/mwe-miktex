@@ -28,8 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        #filename: ${{fromJson(needs.setup.outputs.matrix)}}
-        filename: ['example-marginnote.tex']
+        filename: ${{fromJson(needs.setup.outputs.matrix)}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
