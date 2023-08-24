@@ -29,3 +29,8 @@ jobs:
         with:
           name: PDFs
           path: "*.pdf"
+      - uses: actions/upload-artifact@v3
+        if: ${{ !cancelled() }}
+        with:
+          name: log
+          path: "*.log"
