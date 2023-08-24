@@ -20,25 +20,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Install MiKTeX
-        shell: cmd
         run: |
-          choco install miktex
-      - name: Update MiKTeX packages
-        shell: cmd
+          choco install miktex --no-progress
+          echo "C:\Program Files\MiKTeX\miktex\bin\x64" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8
+      - name: Configure MiKTeX
         run: |
-          call refreshenv
-          initexmf --verbose --set-config-value=[MPM]AutoInstall=1
-          miktex --verbose packages update-package-database
+          initexmf --admin --verbose --set-config-value=[MPM]AutoInstall=1
+          miktex --admin --verbose packages update-package-database
+          miktex --admin --verbose packages update
           miktex --verbose packages update
-          miktex --verbose packages install cm-super
-          miktex --verbose fndb refresh
-          initexmf --verbose --update-fndb
-          type C:\Users\runneradmin\AppData\Local\MiKTeX\miktex\log\initexmf.log
-          initexmf --verbose --mklinks --force
-          type C:\Users\runneradmin\AppData\Local\MiKTeX\miktex\log\initexmf.log
-          updmap
-      - name: pdflatex
-        shell: cmd
-        run: |
-          call refreshenv
-          pdflatex ${{ matrix.filename }}
+          miktex --admin --verbose packages install cm-super
+          miktex --admin --verbose fndb refresh
+          initexmf --admin --verbose --update-fndb
+          initexmf --admin --verbose --mklinks --force
+          updmap --admin
+      - run: pdflatex ${{ matrix.filename }}
