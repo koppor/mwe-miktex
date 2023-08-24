@@ -3,7 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/illustrate-no-update-check.yml'
-      - 'mwe.tex'
+      - 'example-just-article.tex'
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -33,7 +33,7 @@ jobs:
       - run: initexmf --verbose --update-fndb
       - run: initexmf --verbose --mklinks --force
       - run: updmap
-      - run: pdflatex mwe
+      - run: pdflatex example-just-article
       - uses: actions/upload-artifact@v3
         with:
           name: PDFs
