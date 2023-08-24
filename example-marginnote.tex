@@ -1,48 +1,6 @@
 \documentclass{article}
-
 \usepackage[math]{blindtext}
 \usepackage{mwe}
-\usepackage[realmainfile]{currfile}
-\usepackage{tcolorbox}
-\tcbuselibrary{listings}
-
-%introduce \powerset - hint by http://matheplanet.com/matheplanet/nuke/html/viewtopic.php?topic=136492&post_id=997377
-\DeclareFontFamily{U}{MnSymbolC}{}
-\DeclareSymbolFont{MnSyC}{U}{MnSymbolC}{m}{n}
-\DeclareFontShape{U}{MnSymbolC}{m}{n}{
-  <-6>    MnSymbolC5
-  <6-7>   MnSymbolC6
-  <7-8>   MnSymbolC7
-  <8-9>   MnSymbolC8
-  <9-10>  MnSymbolC9
-  <10-12> MnSymbolC10
-  <12->   MnSymbolC12%
-}{}
-\DeclareMathSymbol{\powerset}{\mathord}{MnSyC}{180}
-
-\usepackage{xspace}
-\newcommand{\eg}{e.g.,\ }
-\newcommand{\ie}{i.e.,\ }
-
-% Enable hyphenation at other places as the dash.
-% Example: applicaiton\hydash specific
-\makeatletter
-\newcommand{\hydash}{\penalty\@M-\hskip\z@skip}
-% Definition of "= taken from http://mirror.ctan.org/macros/latex/contrib/babel-contrib/german/ngermanb.dtx
-\makeatother
-
-% Add manual adapted hyphenation of English words
-% See https://ctan.org/pkg/hyphenex and https://tex.stackexchange.com/a/22892/9075 for details
-% Does not work on MiKTeX, therefore disabled - issue reported at https://github.com/MiKTeX/miktex-packaging/issues/271
-% \input{ushyphex}
-
-% correct bad hyphenation here
-\hyphenation{op-tical net-works semi-conduc-tor}
-
-% According to https://tex.stackexchange.com/q/451235/9075 this is the way to go
-\input glyphtounicode
-\pdfgentounicode=1
-
 \begin{document}
 text
 \end{document}
