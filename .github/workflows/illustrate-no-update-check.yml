@@ -41,5 +41,5 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: ${{ !cancelled() }}
         with:
-          name: log
+          name: logs
           path: "*.log"
