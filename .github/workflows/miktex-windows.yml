@@ -50,10 +50,10 @@ jobs:
       - run: pdflatex ${{ matrix.filename }}
       - uses: actions/upload-artifact@v3
         with:
-          name: PDFs
+          name: PDFs-miktex-windows
           path: "*.pdf"
       - uses: actions/upload-artifact@v3
         if: ${{ !cancelled() }}
         with:
-          name: logs
+          name: logs-miktex-windows
           path: "*.log"

@@ -55,12 +55,12 @@ jobs:
       - run: pdflatex ${{ matrix.filename }}
       - uses: actions/upload-artifact@v3
         with:
-          name: PDFs
+          name: PDFs-miktex-linux
           path: "*.pdf"
       - uses: actions/upload-artifact@v3
         if: ${{ !cancelled() }}
         with:
-          name: logs
+          name: logs-miktex-linux
           path: |
             "*.log"
             miktex-report.txt
