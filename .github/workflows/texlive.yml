@@ -20,7 +20,7 @@ jobs:
       id: set-matrix
       run: |
         FILES=$(ls example-*.tex | jq -R -s -c 'split("\n")[:-1]')
-        echo "::set-output name=matrix::$FILES"
+        echo "matrix=$FILES" >> $GITHUB_STATE
   texlive:
     needs: setup
     runs-on: ubuntu-latest
