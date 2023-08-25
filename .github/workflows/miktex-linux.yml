@@ -64,3 +64,4 @@ jobs:
           path: |
             "*.log"
             miktex-report.txt
+            "/home/runner/.miktex/texmfs/data/miktex/log/*.log"
