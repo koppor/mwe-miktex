@@ -48,5 +48,5 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: ${{ !cancelled() }}
         with:
-          name: logs-texlive
+          name: logs-texlive-${{ matrix.filename }}
           path: "*.log"

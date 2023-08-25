@@ -55,7 +55,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: ${{ !cancelled() }}
         with:
-          name: logs-miktex-windows
+          name: logs-miktex-windows-${{ matrix.filename }}
           path: |
             "*.log"
             miktex-report.txt

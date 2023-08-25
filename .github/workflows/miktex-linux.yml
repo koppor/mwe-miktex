@@ -52,6 +52,7 @@ jobs:
       - run: initexmf --verbose --mklinks --force
       - run: updmap
       - run: initexmf --report > miktex-report.txt
+      - run: ls -la
       - run: pdflatex ${{ matrix.filename }}
       - uses: actions/upload-artifact@v3
         with:
@@ -60,7 +61,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: ${{ !cancelled() }}
         with:
-          name: logs-miktex-linux
+          name: logs-miktex-linux-${{ matrix.filename }}
           path: |
             "*.log"
             miktex-report.txt
