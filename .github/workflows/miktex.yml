@@ -2,7 +2,7 @@ name: MiKTeX
 on:
   push:
     paths:
-      - '.github/workflows/miktex-linux.yml'
+      - '.github/workflows/miktex.yml'
       - 'example-*.tex'
   workflow_dispatch:
 concurrency:
