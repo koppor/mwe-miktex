@@ -141,19 +141,19 @@ jobs:
           push: true
           provenance: false
           tags: miktex
-      - run: mkdir -p /tmp/.miktex/texmfs/data/miktex/log
+      - run: mkdir -p ~/.miktex/texmfs/data/miktex/log
       - name: docker initexmf --report
         run: >
           docker run
           -v $(pwd):/workdir
-          -v /tmp/.miktex/texmfs/data/miktex/log:/root/.miktex/texmfs/data/miktex/log
+          -v ~/.miktex/texmfs/data/miktex/log:/root/.miktex/texmfs/data/miktex/log
           localhost:5000/name/app:miktex
           initexmf --report > miktex-report.txt
       - name: docker pdflatex ${{ matrix.filename }}
         run: >
           docker run
           -v $(pwd):/workdir
-          -v /tmp/.miktex/texmfs/data/miktex/log:/root/.miktex/texmfs/data/miktex/log
+          -v ~/.miktex/texmfs/data/miktex/log:/root/.miktex/texmfs/data/miktex/log
           localhost:5000/name/app:miktex
           pdflatex ${{ matrix.filename }}
       - run: chmod -R a+r /tmp/.miktex
@@ -165,4 +165,4 @@ jobs:
           path: |
             *.log
             miktex-report.txt
-            /tmp/.miktex/texmfs/data/miktex/log
+            ~/.miktex/texmfs/data/miktex/log
