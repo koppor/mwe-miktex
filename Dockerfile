@@ -18,6 +18,3 @@ RUN miktex --verbose fndb refresh
 RUN initexmf --verbose --update-fndb
 RUN initexmf --verbose --mklinks --force
 RUN updmap
-COPY example-*.tex .
-RUN pdflatex example-just-article
-RUN pdflatex example-expanstion-T1
