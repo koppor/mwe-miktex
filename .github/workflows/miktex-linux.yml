@@ -52,7 +52,8 @@ jobs:
       - run: initexmf --verbose --mklinks --force
       - run: updmap
       - run: initexmf --report > miktex-report.txt
-      - run: ls -la /home/runner/.miktex/texmfs/data
+      - run: ls -la /home/runner/.miktex/texmfs/data/miktex
+      - run: ls -la /home/runner/.miktex/texmfs/data/miktex/log
       - run: pdflatex ${{ matrix.filename }}
       - uses: actions/upload-artifact@v3
         with:
