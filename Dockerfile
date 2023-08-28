@@ -1,5 +1,6 @@
 FROM ubuntu:22.04
 ENV PATH="${PATH}:${HOME}/bin"
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y -q && \
     apt-get install -qq -y --no-install-recommends ca-certificates gpg dirmngr gnupg-agent sudo && \
     gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/miktex.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D6BC243565B2087BC3F897C9277A7293F59E4889 && \
@@ -12,9 +13,9 @@ RUN initexmf --verbose --set-config-value=[MPM]AutoInstall=1
 RUN miktex --verbose packages update-package-database
 RUN miktex --verbose packages update
 RUN miktex --verbose packages update
-RUN miktex --verbose packages install cm-super
+RUN miktex --verbose packages install cm-super amsfonts biber-linux-x86_64
 RUN miktex --verbose fontmaps configure
 RUN miktex --verbose fndb refresh
-RUN initexmf --verbose --update-fndb
+RUN initexmf --admin --verbose --update-fndb
 RUN updmap
 WORKDIR /workdir
