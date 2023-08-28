@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/miktex.yml'
+      - Dockerfile
       - 'example-*.tex'
   workflow_dispatch:
 concurrency:
