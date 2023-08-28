@@ -10,6 +10,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   setup:
+    name: setup job matrix
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -128,5 +129,26 @@ jobs:
           push: true
           provenance: false
           tags: miktex
+      - run: mkdir -p /root/.miktex/texmfs/data/miktex/log
+      - name: docker initexmf --report
+        run: >
+          docker run
+          -v $(pwd):/workdir
+          -v /root/.miktex/texmfs/data/miktex/log:/root/.miktex/texmfs/data/miktex/log
+          localhost:5000/name/app:miktex
+          initexmf --report > miktex-report.txt
       - name: docker pdflatex ${{ matrix.filename }}
-        run: docker run -v $(pwd):/workdir localhost:5000/name/app:miktex pdflatex ${{ matrix.filename }}
+        run: >
+          docker run
+          -v $(pwd):/workdir
+          -v /root/.miktex/texmfs/data/miktex/log:/root/.miktex/texmfs/data/miktex/log
+          localhost:5000/name/app:miktex
+          pdflatex ${{ matrix.filename }}
+      - uses: actions/upload-artifact@v3
+        if: ${{ !cancelled() }}
+        with:
+          name: logs-miktex-docker-${{ matrix.filename }}
+          path: |
+            *.log
+            miktex-report.txt
+            /home/runner/.miktex/texmfs/data/miktex/log/
