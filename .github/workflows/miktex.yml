@@ -140,7 +140,7 @@ jobs:
         with:
           push: true
           provenance: false
-          tags: miktex
+          tags: localhost:5000/name/app:miktex
       - run: mkdir -p /tmp/.miktex/texmfs/data/miktex/log
       - name: docker initexmf --report
         run: >
