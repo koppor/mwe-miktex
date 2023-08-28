@@ -46,12 +46,10 @@ jobs:
       - run: initexmf --verbose --set-config-value=[MPM]AutoInstall=1
       - run: miktex --verbose packages update-package-database
       - run: miktex --verbose packages update
-      - run: miktex --verbose packages update
-      - run: miktex --verbose packages install cm-super
-      - run: miktex fontmaps configure
+      - run: miktex --verbose packages install cm-super amsfonts
+      - run: miktex --verbose fontmaps configure
       - run: miktex --verbose fndb refresh
-      - run: initexmf --verbose --update-fndb
-      - run: initexmf --verbose --mklinks --force
+      - run: initexmf --admin --verbose --update-fndb
       - run: updmap
       - run: initexmf --report > miktex-report.txt
       - run: pdflatex ${{ matrix.filename }}
