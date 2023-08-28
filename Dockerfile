@@ -13,7 +13,7 @@ RUN initexmf --verbose --set-config-value=[MPM]AutoInstall=1
 RUN miktex --verbose packages update-package-database
 RUN miktex --verbose packages update
 RUN miktex --verbose packages update
-RUN miktex --verbose packages install cm-super amsfonts biber-linux-x86_64
+RUN miktex --verbose packages install cm-super amsfonts
 RUN miktex --verbose fontmaps configure
 RUN miktex --verbose fndb refresh
 RUN initexmf --admin --verbose --update-fndb
