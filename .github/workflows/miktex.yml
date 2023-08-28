@@ -52,16 +52,20 @@ jobs:
       - run: initexmf --verbose --update-fndb
       - run: initexmf --verbose --mklinks --force
       - run: updmap
+      - run: initexmf --report > miktex-report.txt
       - run: pdflatex ${{ matrix.filename }}
       - uses: actions/upload-artifact@v3
         with:
-          name: PDFs
+          name: PDFs-miktex-linux
           path: "*.pdf"
       - uses: actions/upload-artifact@v3
         if: ${{ !cancelled() }}
         with:
-          name: logs
-          path: "*.log"
+          name: logs-miktex-linux-${{ matrix.filename }}
+          path: |
+            *.log
+            miktex-report.txt
+            /home/runner/.miktex/texmfs/data/miktex/log/
   windows:
     needs: setup
     runs-on: windows-latest
@@ -87,16 +91,19 @@ jobs:
           initexmf --admin --verbose --update-fndb
           initexmf --admin --verbose --mklinks --force
           updmap --admin
+          initexmf --report > miktex-report.txt
       - run: pdflatex ${{ matrix.filename }}
       - uses: actions/upload-artifact@v3
         with:
-          name: PDFs
+          name: PDFs-miktex-windows
           path: "*.pdf"
       - uses: actions/upload-artifact@v3
         if: ${{ !cancelled() }}
         with:
-          name: logs
-          path: "*.log"
+          name: logs-miktex-windows-${{ matrix.filename }}
+          path: |
+            "*.log"
+            miktex-report.txt
   docker:
     needs: setup
     runs-on: ubuntu-latest
