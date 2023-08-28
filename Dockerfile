@@ -16,5 +16,4 @@ RUN miktex --verbose packages install cm-super
 RUN miktex --verbose fontmaps configure
 RUN miktex --verbose fndb refresh
 RUN initexmf --verbose --update-fndb
-RUN initexmf --verbose --mklinks --force
 RUN updmap
