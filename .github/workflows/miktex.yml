@@ -1,0 +1,168 @@
+name: MiKTeX
+on:
+  push:
+    paths:
+      - '.github/workflows/miktex.yml'
+      - 'example-*.tex'
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  setup:
+    name: setup job matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Build matrix based on files
+      id: set-matrix
+      run: |
+        FILES=$(ls example-*.tex | jq -R -s -c 'split("\n")[:-1]')
+        echo "matrix=$FILES" >> $GITHUB_OUTPUT
+  linux:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        filename: ${{fromJson(needs.setup.outputs.matrix)}}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Add ~/bin to PATH
+        run: echo "${HOME}/bin" >> $GITHUB_PATH
+      - name: "Install MikTeX: apt-get install"
+        run: |
+          set -e
+          sudo gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/miktex.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D6BC243565B2087BC3F897C9277A7293F59E4889
+          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/miktex.gpg] https://miktex.org/download/ubuntu jammy universe" | sudo tee /etc/apt/sources.list.d/miktex.list
+          sudo apt-get update -y -q
+          sudo apt-get install -qq -y --no-install-recommends miktex
+      - run: miktexsetup --verbose finish
+      - run: initexmf --verbose --set-config-value=[MPM]AutoInstall=1
+      - run: miktex --verbose packages update-package-database
+      - run: miktex --verbose packages update
+      - run: miktex --verbose packages update
+      - run: miktex --verbose packages install cm-super
+      - run: miktex fontmaps configure
+      - run: miktex --verbose fndb refresh
+      - run: initexmf --verbose --update-fndb
+      - run: initexmf --verbose --mklinks --force
+      - run: updmap
+      - run: initexmf --report > miktex-report.txt
+      - run: pdflatex ${{ matrix.filename }}
+      - uses: actions/upload-artifact@v3
+        with:
+          name: PDFs-miktex-linux
+          path: "*.pdf"
+      - uses: actions/upload-artifact@v3
+        if: ${{ !cancelled() }}
+        with:
+          name: logs-miktex-linux-${{ matrix.filename }}
+          path: |
+            *.log
+            miktex-report.txt
+            /home/runner/.miktex/texmfs/data/miktex/log/
+  windows:
+    needs: setup
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        filename: ${{fromJson(needs.setup.outputs.matrix)}}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install MiKTeX
+        run: |
+          choco install miktex --no-progress
+          echo "C:\Program Files\MiKTeX\miktex\bin\x64" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8
+      - name: Configure MiKTeX
+        run: |
+          initexmf --admin --verbose --set-config-value=[MPM]AutoInstall=1
+          miktex --admin --verbose packages update-package-database
+          miktex --admin --verbose packages update
+          miktex --verbose packages update
+          miktex --admin --verbose packages install cm-super
+          miktex --admin --verbose fndb refresh
+          initexmf --admin --verbose --update-fndb
+          initexmf --admin --verbose --mklinks --force
+          updmap --admin
+          initexmf --report > miktex-report.txt
+      - run: pdflatex ${{ matrix.filename }}
+      - uses: actions/upload-artifact@v3
+        with:
+          name: PDFs-miktex-windows
+          path: "*.pdf"
+      - name: Collect MiKTeX logs
+        run: |
+          mkdir miktex-logs
+          Copy-Item C:\\Users\\runneradmin\\AppData\\Local\\MiKTeX\\miktex\\log\\* -Destination miktexlogs -Recurse
+      - uses: actions/upload-artifact@v3
+        if: ${{ !cancelled() }}
+        with:
+          name: logs-miktex-windows-${{ matrix.filename }}
+          path: |
+            "*.log"
+            miktex-report.txt
+            miktexlogs
+  docker:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        filename: ${{fromJson(needs.setup.outputs.matrix)}}
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          driver-opts: network=host
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx
+      - name: Build docker image
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          provenance: false
+          tags: localhost:5000/name/app:miktex
+      - run: mkdir -p /tmp/.miktex/texmfs/data/miktex/log
+      - name: docker initexmf --report
+        run: >
+          docker run
+          -v $(pwd):/workdir
+          -v /tmp/.miktex/texmfs/data/miktex/log:/root/.miktex/texmfs/data/miktex/log
+          localhost:5000/name/app:miktex
+          initexmf --report > miktex-report.txt
+      - name: docker pdflatex ${{ matrix.filename }}
+        run: >
+          docker run
+          -v $(pwd):/workdir
+          -v /tmp/.miktex/texmfs/data/miktex/log:/root/.miktex/texmfs/data/miktex/log
+          localhost:5000/name/app:miktex
+          pdflatex ${{ matrix.filename }}
+      - run: sudo chmod -R a+r /tmp/.miktex
+        if: ${{ !cancelled() }}
+      - uses: actions/upload-artifact@v3
+        if: ${{ !cancelled() }}
+        with:
+          name: logs-miktex-docker-${{ matrix.filename }}
+          path: |
+            *.log
+            miktex-report.txt
+            /tmp/.miktex/texmfs/data/miktex/log
