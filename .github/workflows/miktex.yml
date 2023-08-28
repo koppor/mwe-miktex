@@ -97,6 +97,10 @@ jobs:
         with:
           name: PDFs-miktex-windows
           path: "*.pdf"
+      - name: Collect MiKTeX logs
+        run: |
+          mkdir miktex-logs
+          Copy-Item C:\\Users\\runneradmin\\AppData\\Local\\MiKTeX\\miktex\\log\\* -Destionation miktexlogs -Recurse
       - uses: actions/upload-artifact@v3
         if: ${{ !cancelled() }}
         with:
@@ -104,7 +108,7 @@ jobs:
           path: |
             "*.log"
             miktex-report.txt
-            C:\\Users\\runneradmin\\AppData\\Local\\MiKTeX\\miktex\\log
+            miktexlogs
   docker:
     needs: setup
     runs-on: ubuntu-latest
