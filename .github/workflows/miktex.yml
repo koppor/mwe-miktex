@@ -49,7 +49,7 @@ jobs:
       - run: miktex --verbose packages install cm-super amsfonts
       - run: miktex --verbose fontmaps configure
       - run: miktex --verbose fndb refresh
-      - run: initexmf --admin --verbose --update-fndb
+      - run: initexmf --verbose --update-fndb
       - run: updmap
       - run: initexmf --report > miktex-report.txt
       - run: pdflatex ${{ matrix.filename }}
