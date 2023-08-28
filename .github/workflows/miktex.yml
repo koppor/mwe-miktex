@@ -104,6 +104,7 @@ jobs:
           path: |
             "*.log"
             miktex-report.txt
+            C:\\Users\\runneradmin\\AppData\\Local\\MiKTeX\\miktex\\log
   docker:
     needs: setup
     runs-on: ubuntu-latest
