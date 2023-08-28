@@ -1,10 +1,9 @@
 # Minimal Working Examples for MiKTeX on a CI
 
-This repository demonstrates using MiKTeX in a CI.
-The original idea was to illustrate issues with MiKTeX on Linux.
-See <https://github.com/MiKTeX/miktex/discussions/1365> for the issue I have.
+This repository demonstrates using MiKTeX in a CI, Windows, Linux, and inside Docker.
 
-Meanwhile, the project evolved to a playground for general MiKTeX usage on a CI.
+The original idea was to illustrate issues with MiKTeX on Linux.
+They are all solved now and the project evolved to a playground for general MiKTeX usage on a CI.
 
 ## Development hints
 
