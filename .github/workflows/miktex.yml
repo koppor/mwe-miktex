@@ -83,11 +83,14 @@ jobs:
           echo "C:\Program Files\MiKTeX\miktex\bin\x64" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8
       - name: Configure MiKTeX
         run: |
+          set -e
+          miktexsetup --verbose finish
           initexmf --admin --verbose --set-config-value=[MPM]AutoInstall=1
           miktex --admin --verbose packages update-package-database
           miktex --admin --verbose packages update
           miktex --verbose packages update
           miktex --admin --verbose packages install cm-super amsfonts
+          miktex --admin --verbose fontmaps configure
           miktex --admin --verbose fndb refresh
           initexmf --admin --verbose --update-fndb
           initexmf --admin --verbose --mklinks --force
