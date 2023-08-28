@@ -64,4 +64,4 @@ jobs:
         with:
           name: logs-miktex-linux-${{ matrix.filename }}
           path: |
-            "/home/runner/.miktex/texmfs/data/miktex/log/*.log"
+            /home/runner/.miktex/texmfs/data/miktex/log/
