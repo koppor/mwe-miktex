@@ -17,3 +17,4 @@ RUN miktex --verbose fontmaps configure
 RUN miktex --verbose fndb refresh
 RUN initexmf --verbose --update-fndb
 RUN updmap
+WORKDIR /workdir

@@ -156,7 +156,7 @@ jobs:
           -v /tmp/.miktex/texmfs/data/miktex/log:/root/.miktex/texmfs/data/miktex/log
           localhost:5000/name/app:miktex
           pdflatex ${{ matrix.filename }}
-      - run: chmod -R a+r /tmp/.miktex
+      - run: sudo chmod -R a+r /tmp/.miktex
         if: ${{ !cancelled() }}
       - uses: actions/upload-artifact@v3
         if: ${{ !cancelled() }}
