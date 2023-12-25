@@ -5,6 +5,8 @@ on:
       - '.github/workflows/miktex.yml'
       - Dockerfile
       - 'example-*.tex'
+  schedule:
+    - cron: "5 4 * * FRI"
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
