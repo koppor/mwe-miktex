@@ -4,6 +4,8 @@ on:
     paths:
       - '.github/workflows/texlive.yml'
       - 'example-*.tex'
+  schedule:
+    - cron: "5 4 * * FRI"
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
