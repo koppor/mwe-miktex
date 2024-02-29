@@ -8,5 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: git checkout -b keep-alive
+        with:
+          ref: 'keepalive'
       - uses: gautamkrishnar/keepalive-workflow@v1
