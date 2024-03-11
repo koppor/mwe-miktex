@@ -52,3 +52,11 @@ jobs:
         with:
           name: logs-texlive-${{ matrix.filename }}
           path: "*.log"
+  keepalive:
+    name: Keepalive
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gautamkrishnar/keepalive-workflow@v2
