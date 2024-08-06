@@ -55,11 +55,11 @@ jobs:
       - run: updmap
       - run: initexmf --report > miktex-report.txt
       - run: pdflatex ${{ matrix.filename }}
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: PDFs-miktex-linux
           path: "*.pdf"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: logs-miktex-linux-${{ matrix.filename }}
@@ -94,7 +94,7 @@ jobs:
           updmap --admin
           initexmf --report > miktex-report.txt
       - run: pdflatex ${{ matrix.filename }}
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: PDFs-miktex-windows
           path: "*.pdf"
@@ -102,7 +102,7 @@ jobs:
         run: |
           mkdir miktex-logs
           Copy-Item C:\\Users\\runneradmin\\AppData\\Local\\MiKTeX\\miktex\\log\\* -Destination miktexlogs -Recurse
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: logs-miktex-windows-${{ matrix.filename }}
@@ -159,7 +159,7 @@ jobs:
           pdflatex ${{ matrix.filename }}
       - run: sudo chmod -R a+r /tmp/.miktex
         if: ${{ !cancelled() }}
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: logs-miktex-docker-${{ matrix.filename }}
