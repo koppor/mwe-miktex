@@ -17,7 +17,7 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Build matrix based on files
       id: set-matrix
       run: |
@@ -32,7 +32,7 @@ jobs:
         filename: ${{fromJson(needs.setup.outputs.matrix)}}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install TeX Live
         uses: zauguin/install-texlive@v4
         with:
@@ -58,5 +58,5 @@ jobs:
     permissions:
       actions: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: gautamkrishnar/keepalive-workflow@v2
